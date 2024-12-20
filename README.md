@@ -20,6 +20,7 @@ fca : [ws3-fca](https://www.npmjs.com/package/ws3-fca) by ```Kenneth Aceberos```
 
 ## UPDATES
 
+• added email function, this updates belongs to premium system and box approval system. if the user is requesting for approval the notification will sent from your email address. enter your email address at ``ryuko.json``.</br>
 • configure console output in ``ryuko/configs/console.js``.</br>
 • fixed spam in ban system.</br>
 • discover the new feature with ```premium command```, you can enable it by adding a variable named ```premium``` and the value is boolean</br></br>

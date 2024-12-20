@@ -14,6 +14,9 @@ const gradient = require("gradient-string");
 const process = require("process");
 const listbuiltinModules = require("module").builtinModules;
 const cnslEvent = require("../configs/console.json");
+const send = require('../system/notification/mail.js');
+
+
 
 global.client = new Object({
   commands: new Map(),
@@ -67,6 +70,8 @@ global.data = new Object({
 });
 global.utils = require("./ryukod.js");
 global.loading = require("./ryukoc.js");
+global.send = require('../system/notification/mail.js');
+
 global.nodemodule = new Object();
 global.config = new Object();
 global.ryuko = new Object();
@@ -214,8 +219,13 @@ try {
     logger.error(`please enter your bot name in ${chalk.blueBright('ryuko.json')} file`);
     process.exit(0);
   }
+  if (!global.config.EMAIL) {
+    logger.err(`please enter your email address in ${chalk.blueBright('ryuko.json')} file`)
+    process.exit(0);
+  }
   if (!global.config.PREFIX) {
     logger.error(`please enter your bot prefix in ${chalk.blueBright('ryuko.json')} file`)
+    process.exit(0);
   }
   if (global.config.author != "ryuko") {
     logger.error(`detected : author was changed at ${chalk.blueBright('ryuko.json')}`);

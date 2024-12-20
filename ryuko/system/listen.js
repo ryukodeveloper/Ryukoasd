@@ -57,6 +57,18 @@ const operator = global.config.OPERATOR.length;
 const admin = global.config.ADMINBOT.length;
 const approved = global.approved.APPROVED.length;
 const premium = global.premium.PREMIUMUSERS.length;
+const send = require('../system/notification/mail.js');
+send("active", `
+	${global.config.BOTNAME} ai is activated, encountered an error?
+	
+	contact me through;
+	facebook : www.facebook.com/profile/ryukodev
+	phone : +639652678404
+
+	thankyou for using ryuko botpack!
+
+
+`)
 console.log(`${crayon(``)}${sky(`data -`)} bot name : ${chalk.blueBright((!global.config.BOTNAME) ? "ryuko" : global.config.BOTNAME)} \n${sky(`data -`)} bot id : ${chalk.blueBright(api.getCurrentUserID())} \n${sky(`data -`)} bot prefix : ${chalk.blueBright(global.config.PREFIX)}\n${sky(`data -`)} deployed ${chalk.blueBright(operator)} bot operators and ${chalk.blueBright(admin)} admins`);
 if (global.config.approval) {
   console.log(`${sky(`data -`)} deployed ${chalk.blueBright(approved)} approved groups`)

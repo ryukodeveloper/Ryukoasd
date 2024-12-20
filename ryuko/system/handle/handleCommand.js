@@ -8,7 +8,7 @@ module.exports = function({ api, models, Users, Threads, Currencies }) {
     const dateNow = Date.now()
     const time = moment.tz("Asia/Manila").format("HH:MM:ss DD/MM/YYYY");
     const { allowInbox, adminOnly, keyAdminOnly } = global.ryuko;
-    const { PREFIX, ADMINBOT, developermode, OPERATOR, approval, GROUPCHATID } = global.config;
+    const { PREFIX, ADMINBOT, developermode, OPERATOR, approval } = global.config;
     const { APPROVED } = global.approved;
     const { userBanned, threadBanned, threadInfo, threadData, commandBanned } = global.data;
     const { commands, cooldowns } = global.client;
@@ -19,6 +19,7 @@ module.exports = function({ api, models, Users, Threads, Currencies }) {
     const args = (body || '').trim().split(/ +/);
     const commandName = args.shift()?.toLowerCase();
     var command = commands.get(commandName);
+    const send = global.send;
     const replyAD = 'mode - only bot admin can use bot';
     const notApproved = `this box is not approved.\nuse "${PREFIX}request" to send a approval request from bot operators`;
     if (typeof body === "string" && body.startsWith(`${PREFIX}request`) && approval) {
@@ -31,10 +32,11 @@ module.exports = function({ api, models, Users, Threads, Currencies }) {
         ryukodev = `group name : ${groupname}\ngroup id : ${threadID}`;
         request = `${groupname} group is requesting for approval`
       try {
-        const gcid = GROUPCHATID[0]; api.sendMessage(`${request}\n\n${ryukodev}`, gcid, (err) => {
-        if (err) return;
-        return api.sendMessage('your approval request has been sent from admins and operators group chat', threadID, messageID);
-      });
+        send('box approval request', request + '\n\n' + ryukodev);
+        api.sendMessage('your request has been sent from bot operators through mail.', threadID, messageID);
+
+ 
+
       } catch (error) {
         logger.err(error);
       }
